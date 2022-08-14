@@ -1,0 +1,41 @@
+@font-face {
+  font-family: Rubik;
+  src: url(./fonts/Rubik-Regular.ttf);
+}
+
+body {
+  font-family: Rubik;
+  font-size: 18px;
+}
+
+.input-section {
+  background-image: url("./images/pattern-bg.png");
+}
+
+.arrow-button {
+  border-radius: 8px;
+  width: 35px;
+  position: relative;
+
+  .arrow {
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg) translateY(-50%);
+    -webkit-transform: rotate(-45deg) translateY(-50%);
+    position: absolute;
+    margin: 0 0 0 -1px;
+    top: 50%;
+  }
+}
+
+.rounded-form {
+  border-radius: 8px;
+}
+
+.output-table li {
+  &:last-child {
+    border-left: 2px solid hsl(0, 0%, 59%);
+  }
+}
