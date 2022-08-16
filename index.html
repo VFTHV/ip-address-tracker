@@ -22,53 +22,39 @@
     <title>Frontend Mentor | IP Address Tracker</title>
   </head>
   <body class="container-fluid">
-    <section class="input-section pt-3">
-      <div class="row text-center">
-        <h5 class="text-light mb-3">IP Address Tracker</h5>
-
+    <section class="input-output">
+      <div class="form-centered">
         <form>
-          <div class="input-group mb-3 w-50 mx-auto">
-            <input
-              type="text"
-              class="form-control rounded-form"
-              placeholder="Search for any IP address or domain"
-              aria-label="Search for any IP address or domain"
-              aria-describedby="button-addon2"
-            />
-            <button
-              class="btn btn-dark arrow-button"
-              type="button"
-              id="button-addon2"
-            >
-              <div class="arrow"></div>
-            </button>
-          </div>
+          <label class="form-label" for="ip-input"> IP Address Tracker </label>
+          <input
+            name="ip-input"
+            id="ip-input"
+            type="text"
+            placeholder="Search for any IP address or domain"
+            class="form-input"
+            autocomplete="off"
+          />
+          <button class="submit"><div class="arrow"></div></button>
         </form>
       </div>
-
-      <div class="row w-75 pt-4 mx-auto bg-light rounded">
-        <ul class="list-unstyled row justify-content-between output-table">
-          <li class="col-12 col-lg-auto w-25">
-            <p>IP Address</p>
-            <p></p>
-          </li>
-
-          <li class="col-12 col-lg-auto w-25">
-            <p>Location</p>
-            <p></p>
-          </li>
-
-          <li class="col-12 col-lg-auto w-25">
-            <p>Timezone</p>
-            <p>UTC</p>
-          </li>
-
-          <li class="col-12 col-lg-auto w-25">
-            <p>ISP</p>
-            <p></p>
-          </li>
-        </ul>
-      </div>
+      <ul class="output">
+        <li class="data-column">
+          <p class="data-name">IP address</p>
+          <p class="output-data">192.212.174.101</p>
+        </li>
+        <li class="data-column">
+          <p class="data-name">Location</p>
+          <p class="output-data">Brooklyn, NY 10001</p>
+        </li>
+        <li class="data-column">
+          <p class="data-name">Timezone</p>
+          <p class="output-data">UTC -05:00</p>
+        </li>
+        <li class="data-column">
+          <p class="data-name">ISP</p>
+          <p class="output-data">SpaceX Starlink</p>
+        </li>
+      </ul>
     </section>
 
     <!-- add offset value dynamically using the API -->

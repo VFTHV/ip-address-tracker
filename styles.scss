@@ -6,36 +6,92 @@
 body {
   font-family: Rubik;
   font-size: 18px;
+  box-sizing: border-box;
+  --dark-gray: hsl(0, 0%, 59%);
+  --very-dark-gray: hsl(0, 0%, 17%);
+
+  ul {
+    list-style-type: none;
+  }
 }
 
-.input-section {
+.input-output {
   background-image: url("./images/pattern-bg.png");
+  padding-inline: 2rem;
+  height: 15rem;
 }
 
-.arrow-button {
-  border-radius: 8px;
-  width: 35px;
+.form-centered {
+  display: flex;
+  justify-content: center;
+
+  form {
+    white-space: nowrap;
+    flex-grow: 1;
+  }
+}
+
+.form-label {
+  display: block;
+  text-align: center;
+  padding-top: 0.5rem;
+  color: white;
+}
+
+.form-input {
+  font-size: 0.8em;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  height: 2.2rem;
+  padding-left: 0.8rem;
+  width: calc(100% - 2.2rem);
+
+  &:focus {
+    outline: none;
+  }
+}
+.submit {
+  border: none;
+  border-radius: 0 8px 8px 0;
+  background-color: black;
+  padding: 1.1rem;
+  margin-left: -5px;
+  vertical-align: bottom;
   position: relative;
-
-  .arrow {
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(-45deg) translateY(-50%);
-    -webkit-transform: rotate(-45deg) translateY(-50%);
-    position: absolute;
-    margin: 0 0 0 -1px;
-    top: 50%;
-  }
 }
 
-.rounded-form {
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg) translateY(-50%);
+  -webkit-transform: rotate(-45deg) translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 3px);
+}
+
+.output {
+  margin-top: 2em;
+  background-color: white;
+  padding: 1em 0;
   border-radius: 8px;
+  text-align: center;
+  li {
+    &:last-child {
+      .output-data {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
-.output-table li {
-  &:last-child {
-    border-left: 2px solid hsl(0, 0%, 59%);
-  }
+.data-name {
+  color: var(--dark-gray);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 800;
+  margin: 0;
 }
