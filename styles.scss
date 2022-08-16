@@ -3,6 +3,16 @@
   src: url(./fonts/Rubik-Regular.ttf);
 }
 
+@font-face {
+  font-family: Rubik-500;
+  src: url(./fonts/Rubik-Medium.ttf);
+}
+
+@font-face {
+  font-family: Rubik-700;
+  src: url(./fonts/Rubik-Bold.ttf);
+}
+
 body {
   font-family: Rubik;
   font-size: 18px;
@@ -32,6 +42,7 @@ body {
 }
 
 .form-label {
+  font-family: Rubik-500;
   display: block;
   text-align: center;
   padding-top: 0.5rem;
@@ -53,7 +64,7 @@ body {
 .submit {
   border: none;
   border-radius: 0 8px 8px 0;
-  background-color: black;
+  background-color: var(--very-dark-gray);
   padding: 1.1rem;
   margin-left: -5px;
   vertical-align: bottom;
@@ -79,19 +90,50 @@ body {
   border-radius: 8px;
   text-align: center;
   li {
+    .output-data {
+      font-family: Rubik-500;
+    }
     &:last-child {
       .output-data {
         margin-bottom: 0;
+        color: var(--very-dark-gray);
       }
     }
   }
 }
 
 .data-name {
+  font-family: Rubik-700;
   color: var(--dark-gray);
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   font-size: 10px;
   font-weight: 800;
   margin: 0;
+}
+
+@media only screen and (min-width: 700px) {
+  .input-output {
+    height: 10rem;
+  }
+
+  form {
+    margin-inline: 20vw;
+  }
+
+  .output {
+    display: flex;
+    justify-content: space-around;
+  }
+  .data-column {
+    width: 100%;
+
+    border-inline: solid 0.5px var(--dark-gray);
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
 }
