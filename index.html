@@ -76,7 +76,6 @@
         }
 
         const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_H4jvcSllOaRXGMkxSprwTfmSBuUB2${usedIpOrDomain}`;
-        // const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_H4jvcSllOaRXGMkxSprwTfmSBuUB2&domain=google.com`;
         const ipfy = fetch(url);
         return ipfy;
       };
@@ -94,30 +93,36 @@
         }
       };
 
-      const assignData = (data, ipAddress) => {
-        errorMessage.innerText = "";
-
-        const ip = document.getElementById("ip");
-        const city = document.getElementById("city");
-        const state = document.getElementById("state");
-        const zipcode = document.getElementById("zipcode");
-        const timezone = document.getElementById("timezone");
-        const isp = document.getElementById("isp");
-
-        const yours = ipAddress ? "" : " (Yours)";
-
-        ip.innerText = data.ip + yours;
-        city.innerText = data.location.city;
-        state.innerText = data.location.region;
-        zipcode.innerText = data.location.postalCode + yours;
-        timezone.innerText = data.location.timezone + yours;
-        isp.innerText = data.isp + yours;
-      };
+      const ip = document.getElementById("ip");
+      const city = document.getElementById("city");
+      const state = document.getElementById("state");
+      const zipcode = document.getElementById("zipcode");
+      const timezone = document.getElementById("timezone");
+      const isp = document.getElementById("isp");
       const errorMessage = document.getElementById("error-message");
 
+      const assignData = (data, ipAddress) => {
+        errorMessage.innerText = "";
+        const yours = ipAddress ? "" : " (Yours)";
+
+        errorMessage.innerText = data.code ? data.messages : "";
+
+        // if data.code === 402 i.e. bad request happenned, then put Unknown into the text
+
+        ip.innerText = data.code ? "Unkown" : data.ip + yours;
+        city.innerText = data.code ? "" : data.location.city;
+        state.innerText = data.code ? "" : data.location.region;
+        zipcode.innerText = data.code
+          ? "Unkown"
+          : data.location.postalCode + yours;
+        timezone.innerText = data.code
+          ? "Unkown"
+          : data.location.timezone + yours;
+        isp.innerText = data.code ? "Unkown" : data.isp + yours;
+      };
+
       const onError = () => {
-        errorMessage.innerText =
-          "Enter Valid IP or Domain in format like 'google.com'";
+        alert("Unkown Error Occurred");
       };
 
       const fetchAndAssign = (ip) => {
@@ -125,7 +130,7 @@
           .then((response) => response.json())
           // .then((data) => console.log(data))
           .then((data) => assignData(data, ip))
-          .catch(onError);
+          .catch((error) => onError);
       };
 
       fetchAndAssign();
