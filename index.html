@@ -64,11 +64,34 @@
     </section>
 
     <script>
-      const ipfyFetch = (ip) => {
-        const usedIp = ip ? `&ipAddress=${ip}` : "";
-        const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_H4jvcSllOaRXGMkxSprwTfmSBuUB2${usedIp}`;
+      const ipfyFetch = (input) => {
+        let usedIpOrDomain = "";
+
+        if (!input) {
+          usedIpOrDomain = ``;
+        } else if (domainOrIp(input)) {
+          usedIpOrDomain = `&domain=${input}`;
+        } else {
+          usedIpOrDomain = `&ipAddress=${input}`;
+        }
+
+        const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_H4jvcSllOaRXGMkxSprwTfmSBuUB2${usedIpOrDomain}`;
+        // const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_H4jvcSllOaRXGMkxSprwTfmSBuUB2&domain=google.com`;
         const ipfy = fetch(url);
         return ipfy;
+      };
+
+      const domainOrIp = (input) => {
+        if (!input) return;
+        const expressionString =
+          "^((?!-))(xn--)?[a-z0-9][a-z0-9-_]{0,61}[a-z0-9]{0,1}\.(xn--)?([a-z0-9\-]{1,61}|[a-z0-9-]{1,30}\.[a-z]{2,})$";
+        const expression = new RegExp(expressionString);
+
+        if (input.match(expression)) {
+          return true;
+        } else {
+          return false;
+        }
       };
 
       const assignData = (data, ipAddress) => {
@@ -93,12 +116,14 @@
       const errorMessage = document.getElementById("error-message");
 
       const onError = () => {
-        errorMessage.innerText = "Please Enter Valid IP Address";
+        errorMessage.innerText =
+          "Enter Valid IP or Domain in format like 'google.com'";
       };
 
       const fetchAndAssign = (ip) => {
         ipfyFetch(ip)
           .then((response) => response.json())
+          // .then((data) => console.log(data))
           .then((data) => assignData(data, ip))
           .catch(onError);
       };
