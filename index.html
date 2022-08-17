@@ -23,8 +23,9 @@
   </head>
   <body class="container-fluid">
     <section class="input-output">
+      <h5 id="error-message" class="form-label"></h5>
       <div class="form-centered">
-        <form>
+        <form id="form">
           <label class="form-label" for="ip-input"> IP Address Tracker </label>
           <input
             name="ip-input"
@@ -40,22 +41,78 @@
       <ul class="output">
         <li class="data-column">
           <p class="data-name">IP address</p>
-          <p class="output-data">192.212.174.101</p>
+          <p id="ip" class="output-data">Loading...</p>
         </li>
         <li class="data-column">
           <p class="data-name">Location</p>
-          <p class="output-data">Brooklyn, NY 10001</p>
+          <p class="output-data">
+            <span id="city"> Loading...</span>
+            ,
+            <span id="state"> </span>
+            <span id="zipcode"></span>
+          </p>
         </li>
         <li class="data-column">
           <p class="data-name">Timezone</p>
-          <p class="output-data">UTC -05:00</p>
+          <p class="output-data">UTC: <span id="timezone">Loading...</span></p>
         </li>
         <li class="data-column">
           <p class="data-name">ISP</p>
-          <p class="output-data">SpaceX Starlink</p>
+          <p id="isp" class="output-data">Loading...</p>
         </li>
       </ul>
     </section>
+
+    <script>
+      const ipfyFetch = (ip) => {
+        const usedIp = ip ? `&ipAddress=${ip}` : "";
+        const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_H4jvcSllOaRXGMkxSprwTfmSBuUB2${usedIp}`;
+        const ipfy = fetch(url);
+        return ipfy;
+      };
+
+      const assignData = (data, ipAddress) => {
+        errorMessage.innerText = "";
+
+        const ip = document.getElementById("ip");
+        const city = document.getElementById("city");
+        const state = document.getElementById("state");
+        const zipcode = document.getElementById("zipcode");
+        const timezone = document.getElementById("timezone");
+        const isp = document.getElementById("isp");
+
+        const yours = ipAddress ? "" : " (Yours)";
+
+        ip.innerText = data.ip + yours;
+        city.innerText = data.location.city;
+        state.innerText = data.location.region;
+        zipcode.innerText = data.location.postalCode + yours;
+        timezone.innerText = data.location.timezone + yours;
+        isp.innerText = data.isp + yours;
+      };
+      const errorMessage = document.getElementById("error-message");
+
+      const onError = () => {
+        errorMessage.innerText = "Please Enter Valid IP Address";
+      };
+
+      const fetchAndAssign = (ip) => {
+        ipfyFetch(ip)
+          .then((response) => response.json())
+          .then((data) => assignData(data, ip))
+          .catch(onError);
+      };
+
+      fetchAndAssign();
+
+      const form = document.getElementById("form");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const enteredData = event.target.elements["ip-input"].value;
+        fetchAndAssign(enteredData);
+      });
+    </script>
 
     <!-- add offset value dynamically using the API -->
   </body>
