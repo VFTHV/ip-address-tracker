@@ -89,6 +89,7 @@ body {
   padding: 1em 0;
   border-radius: 8px;
   text-align: center;
+
   li {
     .output-data {
       font-family: Rubik-500;
@@ -112,7 +113,12 @@ body {
   margin: 0;
 }
 
-@media only screen and (min-width: 700px) {
+#map {
+  height: calc(100vh - 15rem);
+  z-index: -1;
+}
+
+@media only screen and (min-width: 650px) {
   .input-output {
     height: 10rem;
   }
@@ -135,5 +141,9 @@ body {
     &:last-child {
       border-right: none;
     }
+  }
+
+  #map {
+    height: calc(100vh - 10rem);
   }
 }
