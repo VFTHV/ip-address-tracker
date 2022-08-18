@@ -153,13 +153,13 @@
     const fetchAndAssign = (ip) => {
       ipfyFetch(ip)
         .then((response) => response.json())
-        // .then((data) => console.log(data));
+        // .then((data) => console.log(data))
         .then((data) => {
           assignData(data, ip);
           const lat = data.location.lat;
           const lng = data.location.lng;
 
-          map.setView([lat, lng], 14);
+          map.setView([lat, lng], 13);
         })
         .catch((error) => onError);
     };
